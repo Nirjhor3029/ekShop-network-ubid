@@ -1,0 +1,46 @@
+:root {
+    --primary-text-color: #fff;
+}
+
+#current_balance {
+    color: var(--primary-text-color);
+}
+
+.container-fluid {
+    width: 95% !important;
+}
+
+
+/* Messaging */
+
+.title-center {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.datatable_action {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.datatable_action a {
+    font-size: 20px;
+}
+
+.trash {
+    color: red !important;
+}
+
+
+/* Business Listings-start */
+
+.checkbox-flex {
+    display: flex;
+    /* justify-content: center; */
+    align-items: end;
+}
+
+
+/* Business Listings-end */
