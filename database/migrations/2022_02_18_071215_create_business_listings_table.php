@@ -18,6 +18,7 @@ class CreateBusinessListingsTable extends Migration
             $table->unsignedInteger('business_categories_id')->nullable();
             $table->unsignedInteger('business_types_id')->nullable();
             $table->unsignedInteger('companies_id')->nullable();
+            $table->integer('active')->default(1);
 
 
             $table->unsignedInteger('applicant_type')->nullable();
@@ -84,6 +85,7 @@ class CreateBusinessListingsTable extends Migration
             $table->string('business_owner3_email', 192)->nullable();
             $table->string('business_bin_no', 192)->nullable();
             $table->string('business_tin_no', 192)->nullable();
+            $table->string('other_business_category', 192)->nullable();
             $table->timestamps();
 
             $table->foreign('companies_id')->references('id')->on('companies')->onDelete('restrict');

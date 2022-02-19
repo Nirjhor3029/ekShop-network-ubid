@@ -141,7 +141,7 @@ class BusinessListingController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = BusinessListing::select('id', 'applicant_name_en', 'mobile')->get();
+            $data = BusinessListing::select('id', 'member_id', 'applicant_name_en', 'mobile')->get();
 
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -363,9 +363,4 @@ class BusinessListingController extends Controller
             // return $business_address;
         }
     }
-
-    // public function jsonKeyCheck($str)
-    // {
-    //     return (isset($str) ?  $str : 'nai');
-    // }
 }

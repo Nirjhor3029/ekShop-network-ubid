@@ -58,6 +58,7 @@ class BusinessListingApiController extends Controller
 
 
         $select = [
+            'active',
             'member_id',
             'applicant_name_bn',
             'applicant_name_en',
@@ -140,6 +141,7 @@ class BusinessListingApiController extends Controller
 
         if ($request->request_type && $request->request_type == 'all') {
             $allData = BusinessListing::join('companies', 'companies.id', 'business_listings.companies_id')
+                ->where('active', 1)
                 ->select($select)
                 ->get();
         } else {
@@ -147,6 +149,7 @@ class BusinessListingApiController extends Controller
             $allData = BusinessListing::join('companies', 'companies.id', 'business_listings.companies_id')
                 ->where('companies.name_en', $request->company)
                 ->where('business_listings.member_id', $request->member_id)
+                ->where('active', 1)
                 ->orWhere('business_listings.mobile', 'like', '%' . $request->member_id . '%')
                 ->select($select)
                 ->get();
@@ -157,8 +160,6 @@ class BusinessListingApiController extends Controller
             foreach ($allData as $data) {
 
                 $other_business_category = ($this->str_check($data->business_categories_id) == 5) ? $this->str_check($data->other_business_category) : '';
-
-
 
                 $singleData = [
                     'member_id' => $data->member_id,
@@ -244,7 +245,7 @@ class BusinessListingApiController extends Controller
                     'auto_office_address' => '',
                     'office_attention_desk_unit' => '',
 
-                    '1' => '',
+                    '1' => 'G1',
 
                     'name_en' => ($this->str_check($data->name)),
                     'mname' => ($this->str_check($data->mother_name)),
@@ -254,7 +255,6 @@ class BusinessListingApiController extends Controller
                 $responseData[] = $singleData;
             }
 
-
             return response()->json([
                 'code' => 200,
                 'data' => $responseData,
@@ -263,7 +263,7 @@ class BusinessListingApiController extends Controller
 
         return response()->json([
             'code' => 401,
-            'reason' => 'No data found'
+            'reason' => 'member id not matched'
         ], 401);
     }
 }

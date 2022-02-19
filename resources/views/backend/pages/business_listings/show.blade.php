@@ -7,6 +7,11 @@ $themePath = asset('theme/');
 @endsection
 @section('styles')
     <style>
+        tr td:last-child {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
     </style>
 @endsection
 
@@ -54,10 +59,14 @@ $themePath = asset('theme/');
                                 <table class="table table-bordered user_datatable example1">
                                     <thead>
                                         <tr>
+                                            <th>id</th>
+                                            <th>member_id</th>
                                             <th>Name</th>
                                             <th>Mobile</th>
                                             {{-- <th>Email</th> --}}
-                                            <th width="100px">Action</th>
+                                            <th width="80px">
+                                                Action
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -82,6 +91,18 @@ $themePath = asset('theme/');
                 serverSide: true,
                 ajax: "{{ route('admin.business_listings.all') }}",
                 columns: [{
+                        data: 'id',
+                        name: 'id',
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: 'member_id',
+                        name: 'member_id',
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
                         data: 'applicant_name_en',
                         name: 'applicant_name_en',
                         orderable: true,
