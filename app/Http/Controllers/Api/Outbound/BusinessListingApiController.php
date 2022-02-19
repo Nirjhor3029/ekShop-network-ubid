@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Outbound;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessListing;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class BusinessListingApiController extends Controller
@@ -53,6 +54,16 @@ class BusinessListingApiController extends Controller
             return response()->json([
                 'code' => 401,
                 'reason' => 'No company provided'
+            ], 401);
+        }
+
+        $company = Company::where('name_en', $request->company)
+            ->orWhere('name_bn', $request->company)
+            ->first();
+        if (empty($company)) {
+            return response()->json([
+                'code' => 401,
+                'reason' => 'This Company is not listed'
             ], 401);
         }
 
@@ -150,7 +161,8 @@ class BusinessListingApiController extends Controller
                 ->where('companies.name_en', $request->company)
                 ->where('business_listings.member_id', $request->member_id)
                 ->where('active', 1)
-                ->orWhere('business_listings.mobile', 'like', '%' . $request->member_id . '%')
+                ->where('companies_id', $company->id)
+                // ->orWhere('business_listings.mobile', 'like', '%' . $request->member_id . '%')
                 ->select($select)
                 ->get();
         }

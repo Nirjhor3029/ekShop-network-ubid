@@ -66,6 +66,9 @@ Route::as('admin.')->prefix('admin')
             Route::post('/update/{id}', [BusinessListingController::class, 'update'])->name('business_listings.update');
             Route::get('/import-data', [BusinessListingController::class, 'import'])->name('business_listings.import');
             Route::get('/get-ekshop-json-data', [BusinessListingController::class, 'json'])->name('business_listings.json');
+
+            // E-cab
+            Route::get('/get-ecab-json-data', [BusinessListingController::class, 'ecab_json'])->name('business_listings.ecab_json');
         });
     });
 
