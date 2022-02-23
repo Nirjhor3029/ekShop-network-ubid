@@ -14,6 +14,8 @@ class BusinessListingApiController extends Controller
     {
         if (is_null($str)) {
             return "";
+        } elseif (strtolower($str) == "null") {
+            return "";
         } else {
             $str = preg_replace("/\r|\n/", "", $str);
             return $str;
@@ -174,25 +176,25 @@ class BusinessListingApiController extends Controller
                 $other_business_category = ($this->str_check($data->business_categories_id) == 5) ? $this->str_check($data->other_business_category) : '';
 
                 $singleData = [
-                    'member_id' => $data->member_id,
+                    'member_id' => $this->str_check($data->member_id),
                     'application_type' => 0,
-                    'name' => ($this->str_check($data->applicant_name_bn)),
-                    'applicant_name_eng' => $this->str_check($data->applicant_name_en),
+                    'name' =>  $this->str_check(($data->applicant_name_bn == null) ? $data->applicant_name_en : $data->applicant_name_bn),
+                    'applicant_name_eng' => $this->str_check(($data->applicant_name_en == null) ? $data->applicant_name_bn : $data->applicant_name_en),
                     'permanent_address' => $this->str_check($data->permanent_address),
                     'present_address' => $this->str_check($data->present_address),
                     'national_id_no' => $this->str_check($data->nid),
                     'dob' => date("Y-m-d", strtotime($this->str_check($data->dob))),
-                    'mobile' => $this->str_check($data->mobile),
+                    'mobile' => $this->str_check(str_replace(' ', '', $data->mobile)),
                     'applier_designation' => $this->str_check($data->applier_designation),
 
-                    'company_name_bangla' => $this->str_check(($data->business_name_bn == null) ? $data->name_bn : $data->business_name_bn),
-                    'company_name' => $this->str_check(($data->business_name_en == null) ? $data->name_en : $data->business_name_en),
+                    'company_name_bangla' => $this->str_check(($data->business_name_bn == null) ? $data->business_name_en : $data->business_name_bn),
+                    'company_name' => $this->str_check(($data->business_name_en == null) ? $data->business_name_bn : $data->business_name_en),
                     'business-web-url' => $this->str_check($data->business_web_url),
                     'facebook_url' => $this->str_check($data->facebook_url),
-                    'company_address_bangla' => $this->str_check(($data->business_address_bn == null) ? $data->address_bn : $data->business_address_bn),
-                    'company_address' => $this->str_check(($data->business_address_en == null) ? $data->address_en : $data->business_address_en),
-                    'company_phone_no' => $this->str_check(($data->business_phone == null) ? $data->phone_no : $data->business_phone),
-                    'company_mobile_no' => $this->str_check(($data->business_mobile == null) ? $data->mobile_no : $data->business_mobile),
+                    'company_address_bangla' => $this->str_check(($data->business_address_bn == null) ? $data->business_address_en : $data->business_address_bn),
+                    'company_address' => $this->str_check(($data->business_address_en == null) ? $data->business_address_bn : $data->business_address_en),
+                    'company_phone_no' => str_replace(' ', '', $this->str_check(($data->business_phone == null) ? $data->phone_no : $data->business_phone)),
+                    'company_mobile_no' => str_replace(' ', '', $this->str_check(($data->business_mobile == null) ? $data->mobile_no : $data->business_mobile)),
                     'company_email' => $this->str_check(($data->business_email == null) ? $data->email : $data->business_email),
 
                     'form-13481635411341281' => $this->str_check($data->business_office_type),
@@ -204,8 +206,8 @@ class BusinessListingApiController extends Controller
                     'form-13481635331461684' => $this->str_check($data->business_thana),
                     'form-13481635331463880' => $this->str_check($data->business_district),
 
-                    'company_owner_phone_no' => $this->str_check($data->business_owner1_mobile),
-                    'company_owner_mobile_no' => $this->str_check($data->business_owner1_mobile),
+                    'company_owner_phone_no' => str_replace(' ', '', $this->str_check($data->business_owner1_mobile)),
+                    'company_owner_mobile_no' => str_replace(' ', '', $this->str_check($data->business_owner1_mobile)),
                     'company_owner_email' => $this->str_check($data->business_owner1_email),
                     'company_landowner_nid' => $this->str_check($data->business_owner1_nid),
 
@@ -226,21 +228,21 @@ class BusinessListingApiController extends Controller
                     'owner_nid' => $this->str_check($data->business_owner1_nid),
                     'owner_name' => $this->str_check($data->business_owner1_name),
                     'owner_address' => $this->str_check($data->business_owner1_address),
-                    'owner_mobile' => $this->str_check($data->business_owner1_mobile),
+                    'owner_mobile' => str_replace(' ', '', $this->str_check($data->business_owner1_mobile)),
                     'owner_email' => $this->str_check($data->business_owner1_email),
 
                     'G-2form-designation' => $this->str_check($data->business_owner2_designation),
                     'G-2owner_nid' => $this->str_check($data->business_owner2_nid),
                     'G-2owner_name' => $this->str_check($data->business_owner2_name),
                     'G-2owner_address' => $this->str_check($data->business_owner2_address),
-                    'G-2owner_mobile' => $this->str_check($data->business_owner2_mobile),
+                    'G-2owner_mobile' => str_replace(' ', '', $this->str_check($data->business_owner2_mobile)),
                     'G-2owner_email' => $this->str_check($data->business_owner2_email),
 
                     'G-1form-designation' => $this->str_check($data->business_owner3_designation),
                     'G-1owner_nid' => $this->str_check($data->business_owner3_nid),
                     'G-1owner_name' => $this->str_check($data->business_owner3_name),
                     'G-1owner_address' => $this->str_check($data->business_owner3_address),
-                    'G-1owner_mobile' => $this->str_check($data->business_owner3_mobile),
+                    'G-1owner_mobile' => str_replace(' ', '', $this->str_check($data->business_owner3_mobile)),
                     'G-1owner_email' => $this->str_check($data->business_owner3_email),
 
                     'ubid_business_category' => $this->str_check($data->business_categories_id),
