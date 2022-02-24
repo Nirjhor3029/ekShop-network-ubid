@@ -112,7 +112,12 @@ class AdminsController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
 
-        $admin = Admin::find($id);
+        $admin = Admin::where('id', $id)->with('companies')->first();
+        // if (!count($admin->companies)) {
+        //     return "no company";
+        // }
+        
+        // return $admin->companies;
         $roles  = Role::all();
         return view('backend.pages.admins.edit', compact('admin', 'roles'));
     }

@@ -90,7 +90,7 @@ $usr = Auth::guard('admin')->user();
                 </li>
 
                 {{-- Roles & Permissions --}}
-                {{-- @if ($usr->can('role.create') || $usr->can('role.view') || $usr->can('role.edit') || $usr->can('role.delete'))
+                @if ($usr->can('role.create') || $usr->can('role.view') || $usr->can('role.edit') || $usr->can('role.delete'))
                     <li class="nav-item">
                         <a href="#" class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-industry"></i>
@@ -119,10 +119,10 @@ $usr = Auth::guard('admin')->user();
 
                         </ul>
                     </li>
-                @endif --}}
+                @endif
 
                 {{-- Admins --}}
-                {{-- @if ($usr->can('admin.create') || $usr->can('admin.view') || $usr->can('admin.edit') || $usr->can('admin.delete'))
+                @if ($usr->can('admin.create') || $usr->can('admin.view') || $usr->can('admin.edit') || $usr->can('admin.delete'))
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-industry"></i>
@@ -151,7 +151,7 @@ $usr = Auth::guard('admin')->user();
 
                         </ul>
                     </li>
-                @endif --}}
+                @endif
 
 
                 {{-- menu-open --}}

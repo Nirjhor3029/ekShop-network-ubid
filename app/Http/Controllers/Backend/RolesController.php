@@ -31,7 +31,7 @@ class RolesController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to view any role !');
         }
         $roles = Role::all();
-        return view('backend.pages.vendors.index', compact('roles'));
+        return view('backend.pages.roles.index', compact('roles'));
     }
 
     /**

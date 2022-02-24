@@ -259,7 +259,7 @@ class BusinessListingApiController extends Controller
 
                     '1' => 'G1',
 
-                    'name_en' => ($this->str_check($data->name)),
+                    'name_en' => ($this->str_check($data->applicant_name_en)),
                     'mname' => ($this->str_check($data->mother_name)),
                     'fname' => ($this->str_check($data->father_name))
                 ];

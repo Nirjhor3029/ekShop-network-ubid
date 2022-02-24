@@ -17,7 +17,6 @@
 
 
 @section('admin-content')
-
     <!-- page title area start -->
     {{-- <div class="page-title-area">
         <div class="row align-items-center">
@@ -77,6 +76,14 @@
                                                 name="password_confirmation" placeholder="Enter Password">
                                         </div>
                                     </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <label for="company_token">Company token</label>
+                                            <input type="text" class="form-control" id="company_token"
+                                                name="company_token" placeholder="Enter company token"
+                                                value="{{ $admin->company_token }}">
+                                        </div>
+                                    </div>
 
                                     <div class="form-row">
                                         <div class="form-group col-md-6 col-sm-6">
@@ -104,7 +111,81 @@
                     </div>
                     <!-- data table end -->
 
+
                 </div>
+
+                @if (count($admin->companies))
+                    <div class="row">
+                        <div class="col-12 mt-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Edit Admin - {{ $admin->name }}</h4>
+                                    @include('backend.layouts.partials.messages')
+
+                                    <form action="{{ route('admin.admins.update', $admin->id) }}" method="POST">
+                                        @method('PUT')
+                                        @csrf
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <label for="name">Admin Name</label>
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                    placeholder="Enter Name" value="{{ $admin->name }}">
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <label for="email">Admin Email</label>
+                                                <input type="text" class="form-control" id="email" name="email"
+                                                    placeholder="Enter Email" value="{{ $admin->email }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <label for="password">Password</label>
+                                                <input type="password" class="form-control" id="password" name="password"
+                                                    placeholder="Enter Password">
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <label for="password_confirmation">Confirm Password</label>
+                                                <input type="password" class="form-control" id="password_confirmation"
+                                                    name="password_confirmation" placeholder="Enter Password">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <label for="company_token">Company token</label>
+                                                <input type="text" class="form-control" id="company_token"
+                                                    name="company_token" placeholder="Enter company token"
+                                                    value="{{ $admin->company_token }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 col-sm-6">
+                                                <label for="password">Assign Roles</label>
+                                                <select name="roles[]" id="roles" class="form-control select2" multiple>
+                                                    @foreach ($roles as $role)
+                                                        <option value="{{ $role->name }}"
+                                                            {{ $admin->hasRole($role->name) ? 'selected' : '' }}>
+                                                            {{ $role->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6">
+                                                <label for="username">Admin Username</label>
+                                                <input type="text" class="form-control" id="username" name="username"
+                                                    placeholder="Enter Username" required value="{{ $admin->username }}">
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Admin</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
             </div>
         </section>
     </div>

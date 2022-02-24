@@ -46,6 +46,16 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+
+    public function companies()
+    {
+        return $this->hasMany(Company::class);
+    }
+
+
+
+
     public static function getpermissionGroups()
     {
         $permission_groups = DB::table('permissions')

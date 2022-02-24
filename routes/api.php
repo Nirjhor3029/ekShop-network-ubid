@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Inbound\BusinessListingApiInboundController;
 use App\Http\Controllers\Api\Outbound\BusinessListingApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
-    Route::get('/verify', [BusinessListingApiController::class, 'index']);
-    Route::post('/verify', [BusinessListingApiController::class, 'verify']);
+
+    Route::controller(BusinessListingApiController::class)->group(function () {
+        Route::post('/verify', 'verify');
+    });
+
+
+    Route::controller(BusinessListingApiInboundController::class)->group(function () {
+        Route::post('company/data', 'setData');
+    });
 });

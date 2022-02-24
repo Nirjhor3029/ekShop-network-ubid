@@ -15,6 +15,11 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedBigInteger('admin_id');
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+
+            $table->string('company_token', 192)->nullable();
+
             $table->string('name_en', 192)->nullable();
             $table->string('name_bn', 192)->nullable();
             $table->string('address_en', 192)->nullable();

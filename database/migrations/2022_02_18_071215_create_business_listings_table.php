@@ -22,7 +22,9 @@ class CreateBusinessListingsTable extends Migration
 
 
             $table->unsignedInteger('applicant_type')->nullable();
-            $table->string('member_id');
+            $table->string('member_id')->nullable();
+            $table->string('db_id')->nullable();
+
             $table->string('applicant_name_en', 192)->nullable();
             $table->string('applicant_name_bn', 192)->nullable();
             $table->string('mobile', 192)->nullable();
@@ -31,11 +33,11 @@ class CreateBusinessListingsTable extends Migration
             $table->string('permanent_address', 192)->nullable();
             $table->string('present_address', 192)->nullable();
             $table->string('nid', 192)->nullable();
-            $table->date('date_of_birthday')->nullable();
+            $table->string('date_of_birthday')->nullable();
             $table->string('applier_designation', 192)->nullable();
             $table->string('business_name_en', 192)->nullable();
             $table->string('business_name_bn', 192)->nullable();
-            $table->date('business_year')->nullable();
+            $table->string('business_year')->nullable();
             $table->string('business_address_en', 192)->nullable();
             $table->string('business_address_bn', 192)->nullable();
             $table->string('business_phone', 192)->nullable();

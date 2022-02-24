@@ -13,4 +13,9 @@ class Company extends Model
     {
         return $this->hasMany(BusinessListing::class);
     }
+
+    public function admins()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }
