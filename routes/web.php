@@ -34,6 +34,7 @@ Auth::routes();
 //     return view('admin.home');
 // })->name('index');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/number-format/{id}', [Controller::class, 'numberFormat']);
 
 /**
  * Admin routes
