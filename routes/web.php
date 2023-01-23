@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Api\inbound\GetDataController;
 use App\Http\Controllers\Backend\Auth\ForgotPasswordController;
 use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\DashboardController;
@@ -69,7 +69,9 @@ Route::as('admin.')->prefix('admin')
             Route::get('/get-ekshop-json-data', [BusinessListingController::class, 'json'])->name('business_listings.json');
 
             // E-cab
-            Route::get('/get-ecab-json-data', [BusinessListingController::class, 'ecab_json'])->name('business_listings.ecab_json');
+            // Route::get('/get-ecab-json-data', [BusinessListingController::class, 'ecab_json'])->name('business_listings.ecab_json');
+            // E-cab
+            // Route::get('/get-ecab-data', [GetDataController::class, 'getEcabData'])->name('business_listings.get_ecab_data');
         });
     });
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Inbound\BusinessListingApiInboundController;
+use App\Http\Controllers\Api\inbound\GetDataController;
 use App\Http\Controllers\Api\Outbound\BusinessListingApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,7 @@ Route::prefix('v1')->group(function () {
     Route::controller(BusinessListingApiInboundController::class)->group(function () {
         Route::post('company/data', 'setData');
     });
+
+    Route::get('/get-ecab-data', [GetDataController::class, 'getEcabData'])->name('business_listings.get_ecab_data');
+
 });
