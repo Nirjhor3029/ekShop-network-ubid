@@ -308,7 +308,11 @@ class BusinessListingController extends Controller
 
         foreach ($allData as $key => $item) {
 
-            $existMerchant = BusinessListing::where('member_id',$item->member_id)->get();
+            if(isset($item->member_id)){
+                $existMerchant = BusinessListing::where('member_id',$item->member_id)->get();
+            }else{
+                echo "member id not found in json <br>";
+            }
             
             if(count($existMerchant)){
                 // if merchant already exist
