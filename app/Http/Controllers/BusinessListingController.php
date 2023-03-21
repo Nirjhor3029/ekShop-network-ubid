@@ -298,7 +298,8 @@ class BusinessListingController extends Controller
         //get all business categories
         // $companyInfo = Company::get();
 
-        $data = file_get_contents(asset('ekshop_merchants.json'));
+        // $data = file_get_contents(asset('ekshop_merchants.json'));
+        $data = file_get_contents(asset('merchant-ekshop_21_march_2023.json'));
         $data = json_decode($data);
         // return $this->jsonKeyCheck($data->Merchant[0]->division);
         // return $data->Merchant[1];
@@ -306,6 +307,14 @@ class BusinessListingController extends Controller
         $allData = $data->Merchant;
 
         foreach ($allData as $key => $item) {
+
+            $existMerchant = BusinessListing::where('member_id',$item->member_id)->get();
+            
+            if(count($existMerchant)){
+                // if merchant already exist
+                continue;
+            }
+
             $business_address = (isset($item->division) ?  $item->division : '') . ',' . (isset($item->district) ?  $item->district : '') . ',' . (isset($item->upazila) ?  $item->upazila : '') . ',' . (isset($item->union) ?  $item->union : '');
             $business_address = rtrim($business_address, ',');
 
@@ -348,7 +357,36 @@ class BusinessListingController extends Controller
 
             $input_data['mobile'] = (isset($item->applicant_mobile) ?  $item->applicant_mobile : '');
             $input_data['business_email'] = (isset($item->applicant_email) ?  $item->applicant_email : '');
-            $input_data['business_year'] = (isset($item->joining_year) ?  $item->joining_year : '');
+            
+            // $input_data['business_year'] = (isset($item->joining_year) ?  $item->joining_year : '');
+
+            // temporary code
+            if(isset($item->joining_year)){
+                $str = $item->joining_year;
+                if(preg_match("/2019/i", $str)){
+                    $input_data['business_year'] =  "2019";
+                }
+                else if(preg_match("/2020/i", $str)){
+                    $input_data['business_year'] =  "2020";
+                }
+                else if(preg_match("/2021/i", $str)){
+                    $input_data['business_year'] =  "2021";
+                }
+                else if(preg_match("/2022/i", $str)){
+                    $input_data['business_year'] =  "2022";
+                }
+                else if(preg_match("/2023/i", $str)){
+                    $input_data['business_year'] =  "2023";
+                }
+                else if(preg_match("/2024/i", $str)){
+                    $input_data['business_year'] =  "2024";
+                }else{
+                    $input_data['business_year'] = "";
+                }
+                
+            }else{
+                $input_data['business_year'] = "";
+            }
 
             $input_data['business_owner1_name'] = (isset($item->applicant_name) ?  $item->applicant_name : '');
             $input_data['business_owner1_address'] = (isset($business_address) ?  $business_address : '');

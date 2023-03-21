@@ -47,7 +47,13 @@ class GetDataController extends Controller
                 // dd($responseBody['code']);
                 if ($responseBody['code'] == 200) {
 
-                    if ($responseBody['message'] != 'Member not found') {
+                    if($responseBody['message'] == 'Member not found'){
+                        $memberId++;
+                        $memberId = str_pad(strval($memberId), 4, "0", STR_PAD_LEFT);
+                        continue;
+                    } 
+
+                    if ($responseBody['message'] == 'Single Member Info') {
                         $responseBodyData = $responseBody['data'];
 
                         $data['applicant_type'] = isset($responseBodyData['application_type']) ? $responseBodyData['application_type'] : null;
@@ -134,7 +140,8 @@ class GetDataController extends Controller
                         $data['business_tin_no'] = isset($responseBodyData['tin_no']) ? $responseBodyData['tin_no'] : null;
 
                         BusinessListing::create($data);
-                    } else {
+                    }
+                    else {
                         // if member not found
                         break;
                     }
