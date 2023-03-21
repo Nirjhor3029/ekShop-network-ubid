@@ -312,6 +312,7 @@ class BusinessListingController extends Controller
                 $existMerchant = BusinessListing::where('member_id',$item->member_id)->get();
             }else{
                 echo "member id not found in json <br>";
+                continue;
             }
             
             if(count($existMerchant)){
