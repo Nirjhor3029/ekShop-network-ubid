@@ -31,6 +31,7 @@ class NumberFormatController extends Controller
                 echo $item->mobile . " ";
             }
 
+            echo "<br><br><br><br>";
             return response()->json([
                 'status' => 200,
                 'message' => ($key+1) . " mobile numbers format successfully"
@@ -38,7 +39,7 @@ class NumberFormatController extends Controller
         } else {
             return response()->json([
                 'status' => 200,
-                'message' => "All mobile numbers already formatted."
+                'message' => "All mobile numbers are already formatted."
             ]);
         }
         // return $this->onlyPhoneNumber("+8801685-262326");
